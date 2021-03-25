@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+
+<body>
+
+  <div id="app" class="ui container">
+    <h1>Notification Center</h1>
+    
+    <!-- Notification Message Markup -->
+    <!-- Types: info, warning, error, success -->
+    <notification-message type="info" header="shit might happen">
+        <p>If you like <b>SHIT</b> it happens</p>
+    </notification-message>
+
+    <notification-message type="warning" header="getting close to shit">
+        <p>Beware <b>SHIT</b> is closing in</p>
+    </notification-message>
+
+    <notification-message type="error" header="oh shit">
+        <p>Deep in the <b>SHIT</b> I told you</p>
+    </notification-message>
+
+    <notification-message type="success" header="shit is gone">
+        <p>No more <b>SHIT</b> carry on</p>
+    </notification-message>
+  </div>
+
+  <!-- Template for Notification Message -->
+  <script type="text/x-template" id="notification-message-template">
+    <!-- instead of binding to a computed property I could have simply separated the 3
+        semantic classes since they are independent and bound only the one reference the type
+        prop: class="ui message" :class="type" -->
+    <!-- v-if directive used to toggle the presence of the container based on the data 
+        object hidden key value -->
+    <div :class="notificationMessageClass" v-if="!hidden">
+        <!-- on click event listening for when the close icon is selected so that it can
+            call the closeNotificationMessage method -->
+        <i class="close icon" @click="closeNotificationMessage"></i>
+        <div class="header">
+          {{ header }}
+        </div>
+        <slot></slot>
+      </div>
+  </script>
+
+  <!-- Import Vue.js -->
+  <script src="https://unpkg.com/vue"></script>
+
+  <script src="app.js"></script>
+</body>
+
+</html> 
